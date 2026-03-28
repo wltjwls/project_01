@@ -3,23 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>나만의 독서 아카이브</title>
+    <style>
+        .error-msg {
+            color: red;
+            font-size: 13px;
+            display: none; /* 처음엔 싹 숨겨두기! */
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
     <h1>📚 나의 독서 기록장</h1>
     
     <div>
-        <label>책 제목: <input type="text" id="book-title"></label><br><br>
-        <label>저자: <input type="text" id="book-author"></label><br><br>
+        <label>책 제목: <input type="text" id="book-title"></label>
+        <span id="title-error" class="error-msg">책 제목을 입력해 주세요!</span><br><br>
+        
+        <label>저자: <input type="text" id="book-author"></label>
+        <span id="author-error" class="error-msg">저자를 입력해 주세요!</span><br><br>
+        
         <label>다 읽은 날짜: <input type="date" id="book-date"></label><br><br>
+        
         <label>별점: 
             <select id="book-rating">
+                <option value="" selected disabled>별점 선택</option>
                 <option value="5">⭐⭐⭐⭐⭐</option>
                 <option value="4">⭐⭐⭐⭐</option>
                 <option value="3">⭐⭐⭐</option>
                 <option value="2">⭐⭐</option>
                 <option value="1">⭐</option>
             </select>
-        </label><br><br>
+        </label>
+        <span id="rating-error" class="error-msg">별점을 선택해 주세요!</span><br><br>
         
         <label>읽게 된 계기:<br> 
             <textarea id="book-motive" rows="2" cols="40"></textarea>
@@ -33,7 +48,6 @@
         
         <button onclick="saveBook()">기록 저장하기</button>
     </div>
-
     <hr>
 
     <h2>📖 내 서재</h2>
@@ -56,14 +70,40 @@
             const quote = document.getElementById('book-quote').value;
             const review = document.getElementById('book-review').value;
 
+            let isValid = true; // 통과 여부를 체크하는 심판!
+
+            // 1. 제목 검사
             if(title === "") {
-                alert("책 제목을 꼭 입력해 주세요!");
-                return;
+                document.getElementById('title-error').style.display = 'inline';
+                isValid = false;
+            } else {
+                document.getElementById('title-error').style.display = 'none';
+            }
+
+            // 2. 저자 검사
+            if(author === "") {
+                document.getElementById('author-error').style.display = 'inline';
+                isValid = false;
+            } else {
+                document.getElementById('author-error').style.display = 'none';
+            }
+
+            // 3. 별점 검사
+            if(rating === "") {
+                document.getElementById('rating-error').style.display = 'inline';
+                isValid = false;
+            } else {
+                document.getElementById('rating-error').style.display = 'none';
+            }
+
+            // 하나라도 빈칸이 있어서 isValid가 false가 되었다면 여기서 저장 멈춤!
+            if(!isValid) {
+                return; 
             }
 
             // 입력된 정보들을 하나의 '객체(Object)' 덩어리로 묶기
             const bookInfo = {
-                id: Date.now(), // 삭제할 때 쓸 고유 번호 (현재 시간을 숫자로 만든 것!)
+                id: Date.now(), // 삭제할 때 쓸 고유 번호
                 title: title,
                 author: author,
                 date: date,
@@ -89,7 +129,7 @@
             document.getElementById('book-title').value = '';
             document.getElementById('book-author').value = '';
             document.getElementById('book-date').value = '';
-            document.getElementById('book-rating').value = '5';
+            document.getElementById('book-rating').value = ''; // 별점도 '별점 선택'으로 리셋!
             document.getElementById('book-motive').value = '';
             document.getElementById('book-quote').value = '';
             document.getElementById('book-review').value = '';
@@ -120,11 +160,11 @@
             });
         }
 
-        // 4. 기록 삭제하는 함수 (고유 번호 id를 받아서 그것만 빼고 다시 저장)
+        // 4. 기록 삭제하는 함수
         function deleteBook(idToDelete) {
             let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
             
-            // 삭제하려는 id와 '다른' 애들만 남겨서 새로운 배열을 만듦 (즉, 클릭한 애는 왕따시킴!)
+            // 삭제하려는 id와 '다른' 애들만 남겨서 새로운 배열을 만듦
             savedBooks = savedBooks.filter(function(book) {
                 return book.id !== idToDelete;
             });
