@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>나만의 독서 아카이브</title>
+</head>
+<script>
+        function saveBook() {
+            // 1. 입력창에 적힌 글씨들 가져오기
+            const title = document.getElementById('book-title').value;
+            const author = document.getElementById('book-author').value;
+            const date = document.getElementById('book-date').value;
+            const rating = document.getElementById('book-rating').value;
+            const motive = document.getElementById('book-motive').value;
+            const quote = document.getElementById('book-quote').value;
+            const review = document.getElementById('book-review').value;
+
+            // 만약 제목을 안 적었다면 경고창 띄우기!
+            if(title === "") {
+                alert("책 제목을 입력해 주세요!");
+                return;
+            }
+
+            // 2. 화면에 띄울 새로운 기록 덩어리(카드) 만들기
+            const bookList = document.getElementById('book-list');
+            const newRecord = document.createElement('div');
+            
+            // 나중에 CSS로 예쁘게 꾸미기 위해 이름표 붙여두기
+            newRecord.className = 'book-card'; 
+            
+            // 화면에 보여질 내용 조립하기 (백틱 ` 사용)
+            newRecord.innerHTML = `
+                <h3>📘 ${title} <small>(${author})</small></h3>
+                <p><strong>완독일:</strong> ${date} &nbsp;|&nbsp; <strong>별점:</strong> ${rating}점</p>
+                <p><strong>💡 읽게 된 계기:</strong> ${motive}</p>
+                <p><strong>✨ 와닿았던 한 줄:</strong> ${quote}</p>
+                <p><strong>✍️ 감상평:</strong> ${review}</p>
+                <br><hr><br>
+            `;
+
+            // 3. '내 서재' 공간에 방금 만든 기록 쏙 집어넣기
+            bookList.appendChild(newRecord);
+
+            // 4. 다음 기록을 위해 입력창 싹 비워주기
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-author').value = '';
+            document.getElementById('book-date').value = '';
+            document.getElementById('book-rating').value = '5';
+            document.getElementById('book-motive').value = '';
+            document.getElementById('book-quote').value = '';
+            document.getElementById('book-review').value = '';
+        }
+    </script>
+<body>
+    <h1>📚 나의 독서 기록장</h1>
+    
+    <div>
+        <label>책 제목: <input type="text" id="book-title"></label><br><br>
+        <label>저자: <input type="text" id="book-author"></label><br><br>
+        <label>다 읽은 날짜: <input type="date" id="book-date"></label><br><br>
+        <label>별점: 
+            <select id="book-rating">
+                <option value="5">⭐⭐⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="1">⭐</option>
+            </select>
+        </label><br><br>
+        
+        <label>읽게 된 계기:<br> 
+            <textarea id="book-motive" rows="2" cols="40"></textarea>
+        </label><br><br>
+
+        <label>와닿았던 한 줄:<br> 
+            <textarea id="book-quote" rows="2" cols="40"></textarea>
+        </label><br><br>
+        <label>짧은 감상평:<br> 
+            <textarea id="book-review" rows="3" cols="40"></textarea>
+        </label><br><br>
+        
+        <button onclick="saveBook()">기록 저장하기</button>
+    </div>
+
+    <hr>
+
+    <h2>📖 내 서재</h2>
+    <div id="book-list">
+        </div>
+
+</body>
+</html>
