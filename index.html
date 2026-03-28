@@ -4,53 +4,6 @@
     <meta charset="UTF-8">
     <title>나만의 독서 아카이브</title>
 </head>
-<script>
-        function saveBook() {
-            // 1. 입력창에 적힌 글씨들 가져오기
-            const title = document.getElementById('book-title').value;
-            const author = document.getElementById('book-author').value;
-            const date = document.getElementById('book-date').value;
-            const rating = document.getElementById('book-rating').value;
-            const motive = document.getElementById('book-motive').value;
-            const quote = document.getElementById('book-quote').value;
-            const review = document.getElementById('book-review').value;
-
-            // 만약 제목을 안 적었다면 경고창 띄우기!
-            if(title === "") {
-                alert("책 제목을 입력해 주세요!");
-                return;
-            }
-
-            // 2. 화면에 띄울 새로운 기록 덩어리(카드) 만들기
-            const bookList = document.getElementById('book-list');
-            const newRecord = document.createElement('div');
-            
-            // 나중에 CSS로 예쁘게 꾸미기 위해 이름표 붙여두기
-            newRecord.className = 'book-card'; 
-            
-            // 화면에 보여질 내용 조립하기 (백틱 ` 사용)
-            newRecord.innerHTML = `
-                <h3>📘 ${title} <small>(${author})</small></h3>
-                <p><strong>완독일:</strong> ${date} &nbsp;|&nbsp; <strong>별점:</strong> ${rating}점</p>
-                <p><strong>💡 읽게 된 계기:</strong> ${motive}</p>
-                <p><strong>✨ 와닿았던 한 줄:</strong> ${quote}</p>
-                <p><strong>✍️ 감상평:</strong> ${review}</p>
-                <br><hr><br>
-            `;
-
-            // 3. '내 서재' 공간에 방금 만든 기록 쏙 집어넣기
-            bookList.appendChild(newRecord);
-
-            // 4. 다음 기록을 위해 입력창 싹 비워주기
-            document.getElementById('book-title').value = '';
-            document.getElementById('book-author').value = '';
-            document.getElementById('book-date').value = '';
-            document.getElementById('book-rating').value = '5';
-            document.getElementById('book-motive').value = '';
-            document.getElementById('book-quote').value = '';
-            document.getElementById('book-review').value = '';
-        }
-    </script>
 <body>
     <h1>📚 나의 독서 기록장</h1>
     
@@ -71,7 +24,6 @@
         <label>읽게 된 계기:<br> 
             <textarea id="book-motive" rows="2" cols="40"></textarea>
         </label><br><br>
-
         <label>와닿았던 한 줄:<br> 
             <textarea id="book-quote" rows="2" cols="40"></textarea>
         </label><br><br>
@@ -88,5 +40,101 @@
     <div id="book-list">
         </div>
 
+    <script>
+        // 1. 웹페이지가 딱 켜지면 제일 먼저 할 일: 저장된 책 목록 불러오기!
+        window.onload = function() {
+            loadBooks();
+        };
+
+        // 2. 기록 저장하기 버튼을 눌렀을 때 실행되는 함수
+        function saveBook() {
+            const title = document.getElementById('book-title').value;
+            const author = document.getElementById('book-author').value;
+            const date = document.getElementById('book-date').value;
+            const rating = document.getElementById('book-rating').value;
+            const motive = document.getElementById('book-motive').value;
+            const quote = document.getElementById('book-quote').value;
+            const review = document.getElementById('book-review').value;
+
+            if(title === "") {
+                alert("책 제목을 꼭 입력해 주세요!");
+                return;
+            }
+
+            // 입력된 정보들을 하나의 '객체(Object)' 덩어리로 묶기
+            const bookInfo = {
+                id: Date.now(), // 삭제할 때 쓸 고유 번호 (현재 시간을 숫자로 만든 것!)
+                title: title,
+                author: author,
+                date: date,
+                rating: rating,
+                motive: motive,
+                quote: quote,
+                review: review
+            };
+
+            // 브라우저 창고(localStorage)에서 기존 기록 꺼내오기 (없으면 빈 배열 [])
+            let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
+            
+            // 기존 기록에 방금 쓴 새 기록 추가하기
+            savedBooks.push(bookInfo);
+
+            // 다시 창고(localStorage)에 안전하게 텍스트로 변환해서 집어넣기
+            localStorage.setItem('myLibrary', JSON.stringify(savedBooks));
+
+            // 화면에 방금 저장한 것까지 포함해서 다시 예쁘게 그리기
+            loadBooks();
+
+            // 다음 입력을 위해 칸 싹 다 비워주기
+            document.getElementById('book-title').value = '';
+            document.getElementById('book-author').value = '';
+            document.getElementById('book-date').value = '';
+            document.getElementById('book-rating').value = '5';
+            document.getElementById('book-motive').value = '';
+            document.getElementById('book-quote').value = '';
+            document.getElementById('book-review').value = '';
+        }
+
+        // 3. 창고에서 기록을 꺼내서 화면에 그려주는 함수
+        function loadBooks() {
+            const bookList = document.getElementById('book-list');
+            bookList.innerHTML = ''; // 화면에 똑같은 게 또 그려지지 않게 일단 빈 도화지로 만듦
+
+            let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
+
+            // 저장된 책 개수만큼 반복해서 화면에 카드 만들기!
+            savedBooks.forEach(function(book) {
+                const newRecord = document.createElement('div');
+                
+                newRecord.innerHTML = `
+                    <h3>📘 ${book.title} <small>(${book.author})</small></h3>
+                    <p><strong>완독일:</strong> ${book.date} &nbsp;|&nbsp; <strong>별점:</strong> ${book.rating}점</p>
+                    <p><strong>💡 읽게 된 계기:</strong> ${book.motive}</p>
+                    <p><strong>✨ 와닿았던 한 줄:</strong> ${book.quote}</p>
+                    <p><strong>✍️ 감상평:</strong> ${book.review}</p>
+                    <button onclick="deleteBook(${book.id})">🗑️ 이 기록 삭제하기</button>
+                    <br><hr><br>
+                `;
+                
+                bookList.appendChild(newRecord);
+            });
+        }
+
+        // 4. 기록 삭제하는 함수 (고유 번호 id를 받아서 그것만 빼고 다시 저장)
+        function deleteBook(idToDelete) {
+            let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
+            
+            // 삭제하려는 id와 '다른' 애들만 남겨서 새로운 배열을 만듦 (즉, 클릭한 애는 왕따시킴!)
+            savedBooks = savedBooks.filter(function(book) {
+                return book.id !== idToDelete;
+            });
+
+            // 왕따시키고 남은 애들만 다시 창고에 저장
+            localStorage.setItem('myLibrary', JSON.stringify(savedBooks));
+
+            // 화면 다시 그리기
+            loadBooks();
+        }
+    </script>
 </body>
 </html>
