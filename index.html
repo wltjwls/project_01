@@ -11,25 +11,59 @@
         /* 전체 배경과 기본 글씨 설정 */
         body {
             font-family: 'Gowun Dodum', sans-serif;
-            background-color: #fdfaf6; /* 따뜻한 크림 베이지 */
-            color: #4a3f35; /* 부드러운 짙은 갈색 */
-            max-width: 700px; /* 화면이 너무 넓어지지 않게 고정 */
-            margin: 0 auto; /* 가운데 정렬 */
-            padding: 30px 20px;
+            background-color: #fdfaf6;
+            color: #4a3f35;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 0 50px 0;
+        }
+
+        /* 상단 로그인 바 */
+        #auth-bar {
+            background: #fdf6e3;
+            padding: 10px 20px;
+            text-align: right;
+            border-bottom: 1px solid #e0d8c3;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        #auth-bar button {
+            width: auto;
+            margin: 0 0 0 10px;
+            padding: 5px 15px;
+            font-size: 14px;
+            background-color: #8b5a2b;
+        }
+
+        .container {
+            padding: 20px;
         }
 
         h1, h2 {
             text-align: center;
-            color: #8b5a2b; /* 우드톤 포인트 컬러 */
-            margin-bottom: 30px;
+            color: #8b5a2b;
+            margin-top: 30px;
         }
 
-        /* 책 정보 입력하는 하얀 상자(다이어리 느낌) */
-        div:first-of-type {
+        /* 프로필 섹션 디자인 */
+        #profile-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px;
+            border: 1px solid #d4a373;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 입력 상자 */
+        .input-box {
             background-color: #ffffff;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); /* 아주 연한 그림자 */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            margin-bottom: 20px;
         }
 
         label {
@@ -39,28 +73,18 @@
             margin-bottom: 5px;
         }
 
-        /* 입력 칸 디자인 */
         input[type="text"], input[type="date"], select, textarea {
             width: 100%;
             padding: 12px;
             border: 1px solid #e0d8c3;
             border-radius: 8px;
             box-sizing: border-box;
-            font-family: 'Gowun Dodum', sans-serif; /* 입력칸 안에도 예쁜 폰트 적용 */
+            font-family: 'Gowun Dodum', sans-serif;
             background-color: #faf8f5;
-            transition: 0.3s;
         }
 
-        /* 입력 칸을 클릭했을 때 테두리 색상 변경 */
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: #d4a373;
-            background-color: #ffffff;
-        }
-
-        /* 저장 버튼 디자인 */
         button {
-            background-color: #d4a373; /* 따뜻한 카라멜색 */
+            background-color: #d4a373;
             color: white;
             border: none;
             padding: 15px 20px;
@@ -68,294 +92,276 @@
             font-size: 16px;
             cursor: pointer;
             width: 100%;
-            margin-top: 25px;
+            margin-top: 20px;
             font-family: 'Gowun Dodum', sans-serif;
-            transition: background-color 0.3s;
         }
 
-        button:hover {
-            background-color: #bc8a5f; /* 마우스 올렸을 때 살짝 진해짐 */
-        }
-
-        /* 중간 구분선 설정 */
         hr {
             border: none;
             border-top: 2px dashed #e0d8c3;
             margin: 40px 0;
         }
 
-        /* 저장된 내 서재 기록 카드 디자인 */
+        /* 로그인 모달 */
+        #auth-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            z-index: 1001;
+            width: 320px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
         #book-list div {
             background-color: #ffffff;
             padding: 25px;
             border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
             margin-bottom: 25px;
-            border-left: 6px solid #d4a373; /* 왼쪽에 띠지 포인트 */
+            border-left: 6px solid #d4a373;
         }
 
-        #book-list h3 {
-            margin-top: 0;
-            color: #8b5a2b;
-            border-bottom: 1px solid #f0eee9;
-            padding-bottom: 10px;
-        }
-
-        #book-list p {
-            line-height: 1.6;
-            margin: 8px 0;
-        }
-
-        /* 삭제 버튼 디자인 (조금 작고 차분하게) */
-        #book-list button {
-            background-color: #e0d8c3;
-            color: #4a3f35;
-            width: auto;
-            padding: 8px 15px;
-            font-size: 14px;
-            margin-top: 15px;
-        }
-
-        #book-list button:hover {
-            background-color: #c9bda5;
-        }
-
-        /* 에러 메시지 */
-        .error-msg {
-            color: #d9534f;
-            font-size: 13px;
-            display: none;
-            margin-top: 5px;
-        }
-
-        /* AI 사서 섹션 꾸미기 */
-        #ai-section {
-            background-color: #f4eee6;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        #ai-response {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-left: 5px solid #d4a373;
-            border-radius: 8px;
-            line-height: 1.6;
-            font-size: 15px;
-        }
+        #ai-section { background-color: #f4eee6; padding: 25px; border-radius: 12px; }
+        #ai-response { margin-top: 20px; padding: 20px; background-color: #ffffff; border-left: 5px solid #d4a373; border-radius: 8px; }
     </style>
 </head>
 <body>
-    <h1>📚 나의 독서 기록장</h1>
-    
-    <div>
-        <label>책 제목: <input type="text" id="book-title"></label>
-        <span id="title-error" class="error-msg">책 제목을 입력해 주세요!</span><br><br>
-        
-        <label>저자: <input type="text" id="book-author"></label>
-        <span id="author-error" class="error-msg">저자를 입력해 주세요!</span><br><br>
-        
-        <label>다 읽은 날짜: <input type="date" id="book-date"></label><br><br>
-        
-        <label>별점: 
-            <select id="book-rating">
-                <option value="" selected disabled>별점 선택</option>
-                <option value="5">⭐⭐⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="1">⭐</option>
-            </select>
-        </label>
-        <span id="rating-error" class="error-msg">별점을 선택해 주세요!</span><br><br>
-        
-        <label>읽게 된 계기:<br> 
-            <textarea id="book-motive" rows="2" cols="40"></textarea>
-        </label><br><br>
-        <label>와닿았던 한 줄:<br> 
-            <textarea id="book-quote" rows="2" cols="40"></textarea>
-        </label><br><br>
-        <label>짧은 감상평:<br> 
-            <textarea id="book-review" rows="3" cols="40"></textarea>
-        </label><br><br>
-        
-        <button onclick="saveBook()">기록 저장하기</button>
-    </div>
-    <hr>
 
-    <h2>🤖 AI 사서에게 책 추천받기</h2>
-    <div id="ai-section">
-        <input type="text" id="ai-query" placeholder="예: 한강 작가의 감성적인 소설 추천해 줘!">
-        <button onclick="askAI()">사서에게 물어보기 ✨</button>
-        <div id="ai-response" style="display: none;"></div>
-    </div>
-    <hr>
-
-    <h2>📖 내 서재</h2>
-    <div id="book-list">
+    <div id="auth-bar">
+        <span id="user-status">로그인이 필요합니다.</span>
+        <button id="login-open-btn" onclick="openModal()">로그인/회원가입</button>
+        <button id="logout-btn" style="display:none;" onclick="handleLogout()">로그아웃</button>
     </div>
 
-    <script>
-        // 1. 웹페이지가 딱 켜지면 제일 먼저 할 일: 저장된 책 목록 불러오기!
-        window.onload = function() {
-            loadBooks();
+    <div id="profile-section" style="display:none;">
+        <h3>🌱 나의 성장 기록</h3>
+        <div id="growth-stage" style="font-size: 1.1rem; margin-bottom: 15px;">단계: 씨앗 🌰</div>
+        
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="text" id="user-nickname" placeholder="닉네임을 입력하세요" style="flex: 1; margin: 0;">
+            <button onclick="updateNickname()" style="width: auto; padding: 10px 20px; margin: 0; background-color: #8b5a2b;">변경</button>
+        </div>
+    </div>
+
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()"></div>
+    <div id="auth-modal">
+        <h3 style="text-align: center;">정보를 입력해주세요</h3>
+        <input type="email" id="auth-email" placeholder="이메일 주소">
+        <input type="password" id="auth-pw" placeholder="비밀번호(6자리 이상)">
+        <div style="display: flex; gap: 10px;">
+            <button onclick="handleSignIn()" style="flex:1; background:#d4a373; margin: 0;">로그인</button>
+            <button onclick="handleSignUp()" style="flex:1; background:#8b5a2b; margin: 0;">회원가입</button>
+        </div>
+        <button onclick="closeModal()" style="background:#ccc; margin-top:10px;">닫기</button>
+    </div>
+
+    <div class="container">
+        <h1>📚 나의 독서 기록장</h1>
+        
+        <div class="input-box">
+            <label>책 제목: <input type="text" id="book-title"></label>
+            <label>저자: <input type="text" id="book-author"></label>
+            <label>다 읽은 날짜: <input type="date" id="book-date"></label>
+            <label>별점: 
+                <select id="book-rating">
+                    <option value="" selected disabled>별점 선택</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="1">⭐</option>
+                </select>
+            </label>
+            <label>읽게 된 계기: <textarea id="book-motive" rows="2"></textarea></label>
+            <label>와닿았던 한 줄: <textarea id="book-quote" rows="2"></textarea></label>
+            <label>짧은 감상평: <textarea id="book-review" rows="3"></textarea></label>
+            <button onclick="saveBook()">기록 저장하기</button>
+        </div>
+
+        <hr>
+
+        <h2>🤖 AI 사서 추천</h2>
+        <div id="ai-section">
+            <input type="text" id="ai-query" placeholder="어떤 책을 찾으시나요?">
+            <button onclick="askAI()">추천받기 ✨</button>
+            <div id="ai-response" style="display: none;"></div>
+        </div>
+
+        <hr>
+
+        <h2>📖 내 서재</h2>
+        <div id="book-list"></div>
+    </div>
+
+    <!-- Firebase 모듈 및 프로필 로직 -->
+    <script type="module">
+        // 1. 외부 설정 파일에서 키 불러오기 (수정됨)
+        import { firebaseConfig } from './config.js';
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+
+        // 2. 초기화
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        window.openModal = () => { 
+            document.getElementById('auth-modal').style.display = 'block';
+            document.getElementById('modal-overlay').style.display = 'block';
+        };
+        window.closeModal = () => { 
+            document.getElementById('auth-modal').style.display = 'none';
+            document.getElementById('modal-overlay').style.display = 'none';
         };
 
-        // 2. 기록 저장하기 버튼을 눌렀을 때 실행되는 함수
+        window.updateNickname = async () => {
+            const user = auth.currentUser;
+            const newNickname = document.getElementById('user-nickname').value;
+            if (user && newNickname) {
+                try {
+                    await setDoc(doc(db, "users", user.uid), {
+                        nickname: newNickname,
+                        lastUpdated: new Date()
+                    }, { merge: true });
+                    alert("닉네임이 성공적으로 변경되었습니다! ✨");
+                    location.reload();
+                } catch (e) { alert("저장 실패: " + e.message); }
+            } else { alert("닉네임을 입력해주세요!"); }
+        };
+
+        window.handleSignUp = async () => {
+            const email = document.getElementById('auth-email').value;
+            const pw = document.getElementById('auth-pw').value;
+            try {
+                await createUserWithEmailAndPassword(auth, email, pw);
+                alert("회원가입 성공! 🌱");
+                closeModal();
+            } catch (e) { alert("실패: " + e.message); }
+        };
+
+        window.handleSignIn = async () => {
+            const email = document.getElementById('auth-email').value;
+            const pw = document.getElementById('auth-pw').value;
+            try {
+                await signInWithEmailAndPassword(auth, email, pw);
+                alert("로그인되었습니다!");
+                closeModal();
+            } catch (e) { alert("오류: " + e.message); }
+        };
+
+        window.handleLogout = () => signOut(auth).then(() => location.reload());
+
+        onAuthStateChanged(auth, async (user) => {
+            const statusText = document.getElementById('user-status');
+            const loginBtn = document.getElementById('login-open-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+            const profileSection = document.getElementById('profile-section');
+
+            if (user) {
+                const userDoc = await getDoc(doc(db, "users", user.uid));
+                if (userDoc.exists()) {
+                    const name = userDoc.data().nickname;
+                    statusText.innerText = `${name}님 안녕하세요! 🌱`;
+                    document.getElementById('user-nickname').value = name;
+                } else {
+                    statusText.innerText = `${user.email.split('@')[0]}님 안녕하세요! 🌱`;
+                }
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+                profileSection.style.display = 'block';
+            } else {
+                statusText.innerText = "로그인이 필요합니다.";
+                loginBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'none';
+                profileSection.style.display = 'none';
+            }
+        });
+    </script>
+
+    <script>
+        window.onload = () => loadBooks();
+
         function saveBook() {
             const title = document.getElementById('book-title').value;
             const author = document.getElementById('book-author').value;
-            const date = document.getElementById('book-date').value;
             const rating = document.getElementById('book-rating').value;
-            const motive = document.getElementById('book-motive').value;
-            const quote = document.getElementById('book-quote').value;
-            const review = document.getElementById('book-review').value;
+            if(!title || !author || !rating) return alert("필수 항목을 채워주세요!");
 
-            let isValid = true; // 통과 여부를 체크하는 심판!
-
-            // 1. 제목 검사
-            if(title === "") {
-                document.getElementById('title-error').style.display = 'inline';
-                isValid = false;
-            } else {
-                document.getElementById('title-error').style.display = 'none';
-            }
-
-            // 2. 저자 검사
-            if(author === "") {
-                document.getElementById('author-error').style.display = 'inline';
-                isValid = false;
-            } else {
-                document.getElementById('author-error').style.display = 'none';
-            }
-
-            // 3. 별점 검사
-            if(rating === "") {
-                document.getElementById('rating-error').style.display = 'inline';
-                isValid = false;
-            } else {
-                document.getElementById('rating-error').style.display = 'none';
-            }
-
-            // 하나라도 빈칸이 있어서 isValid가 false가 되었다면 여기서 저장 멈춤!
-            if(!isValid) {
-                return; 
-            }
-
-            // 입력된 정보들을 하나의 '객체(Object)' 덩어리로 묶기
             const bookInfo = {
-                id: Date.now(), // 삭제할 때 쓸 고유 번호
-                title: title,
-                author: author,
-                date: date,
+                id: Date.now(),
+                title: title, author: author,
+                date: document.getElementById('book-date').value,
                 rating: rating,
-                motive: motive,
-                quote: quote,
-                review: review
+                motive: document.getElementById('book-motive').value,
+                quote: document.getElementById('book-quote').value,
+                review: document.getElementById('book-review').value
             };
 
-            // 브라우저 창고(localStorage)에서 기존 기록 꺼내오기 (없으면 빈 배열 [])
             let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
-            
-            // 기존 기록에 방금 쓴 새 기록 추가하기
             savedBooks.push(bookInfo);
-
-            // 다시 창고(localStorage)에 안전하게 텍스트로 변환해서 집어넣기
             localStorage.setItem('myLibrary', JSON.stringify(savedBooks));
-
-            // 화면에 방금 저장한 것까지 포함해서 다시 예쁘게 그리기
             loadBooks();
-
-            // 다음 입력을 위해 칸 싹 다 비워주기
-            document.getElementById('book-title').value = '';
-            document.getElementById('book-author').value = '';
-            document.getElementById('book-date').value = '';
-            document.getElementById('book-rating').value = ''; // 별점도 '별점 선택'으로 리셋!
-            document.getElementById('book-motive').value = '';
-            document.getElementById('book-quote').value = '';
-            document.getElementById('book-review').value = '';
+            clearInputs();
         }
 
-        // 3. 창고에서 기록을 꺼내서 화면에 그려주는 함수
         function loadBooks() {
             const bookList = document.getElementById('book-list');
-            bookList.innerHTML = ''; // 화면에 똑같은 게 또 그려지지 않게 일단 빈 도화지로 만듦
-
+            bookList.innerHTML = '';
             let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
-
-            // 저장된 책 개수만큼 반복해서 화면에 카드 만들기!
-            savedBooks.forEach(function(book) {
-                const newRecord = document.createElement('div');
-                
-                newRecord.innerHTML = `
-                    <h3>📘 ${book.title} <small>(${book.author})</small></h3>
-                    <p><strong>완독일:</strong> ${book.date} &nbsp;|&nbsp; <strong>별점:</strong> ${book.rating}점</p>
-                    <p><strong>💡 읽게 된 계기:</strong> ${book.motive}</p>
-                    <p><strong>✨ 와닿았던 한 줄:</strong> ${book.quote}</p>
-                    <p><strong>✍️ 감상평:</strong> ${book.review}</p>
-                    <button onclick="deleteBook(${book.id})">🗑️ 이 기록 삭제하기</button>
-                    <br><hr><br>
+            savedBooks.forEach(book => {
+                const card = document.createElement('div');
+                card.innerHTML = `
+                    <h3>📘 ${book.title} (${book.author})</h3>
+                    <p>별점: ${'⭐'.repeat(book.rating)} | 날짜: ${book.date}</p>
+                    <p><strong>감상평:</strong> ${book.review}</p>
+                    <button onclick="deleteBook(${book.id})" style="width:auto; padding:5px 10px; background:#ccc;">삭제</button>
                 `;
-                
-                bookList.appendChild(newRecord);
+                bookList.appendChild(card);
             });
         }
 
-        // 4. 기록 삭제하는 함수
-        function deleteBook(idToDelete) {
+        function deleteBook(id) {
             let savedBooks = JSON.parse(localStorage.getItem('myLibrary')) || [];
-            
-            // 삭제하려는 id와 '다른' 애들만 남겨서 새로운 배열을 만듦
-            savedBooks = savedBooks.filter(function(book) {
-                return book.id !== idToDelete;
-            });
-
-            // 왕따시키고 남은 애들만 다시 창고에 저장
+            savedBooks = savedBooks.filter(b => b.id !== id);
             localStorage.setItem('myLibrary', JSON.stringify(savedBooks));
-
-            // 화면 다시 그리기
             loadBooks();
         }
 
-        // 5. AI 사서에게 질문 보내고 답변 받아오는 함수
+        function clearInputs() {
+            ['book-title', 'book-author', 'book-date', 'book-motive', 'book-quote', 'book-review'].forEach(id => {
+                document.getElementById(id).value = '';
+            });
+            document.getElementById('book-rating').value = '';
+        }
+
         async function askAI() {
             const query = document.getElementById('ai-query').value;
             const responseBox = document.getElementById('ai-response');
-
-            if(query === "") {
-                alert("AI 사서에게 어떤 책을 추천받고 싶은지 적어주세요!");
-                return;
-            }
-
-            // 로딩 중 화면 보여주기
+            if(!query) return alert("질문을 입력하세요!");
             responseBox.style.display = 'block';
-            responseBox.innerHTML = "🤔 AI 사서가 서재에서 책을 고르고 있어요... 잠시만 기다려주세요 ⏳";
-
+            responseBox.innerHTML = "🤔 사서가 책을 찾는 중...";
             try {
-                // 파이썬 서버로 질문(데이터) 전송!
-                const response = await fetch('http://127.0.0.1:5000/api/recommend', {
+                const res = await fetch('http://127.0.0.1:5000/api/recommend', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ message: query })
                 });
-
-                const data = await response.json();
-
-                if(data.reply) {
-                    // 마크다운 기호를 예쁜 HTML로 변환해서 보여주기!
-                    const htmlReply = marked.parse(data.reply);
-                    responseBox.innerHTML = `<strong>💡 AI 사서의 추천:</strong><br><br>${htmlReply}`;
-                } else {
-                    responseBox.innerHTML = "앗, 문제가 생겼어요: " + data.error;
-                }
-            } catch (error) {
-                responseBox.innerHTML = "서버와 연결이 끊어졌어요. 파이썬 터미널 창에서 서버가 켜져 있는지 확인해 주세요!";
-            }
+                const data = await res.json();
+                responseBox.innerHTML = marked.parse(data.reply);
+            } catch (e) { responseBox.innerHTML = "서버 연결 실패!"; }
         }
     </script>
 </body>
